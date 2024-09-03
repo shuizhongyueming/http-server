@@ -116,6 +116,6 @@
     "http-server": "./bin/http-server"
   },
   "tap": {
-    "timeout": 6
+    "timeout": 3
   }
 }
