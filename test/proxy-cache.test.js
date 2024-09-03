@@ -29,7 +29,7 @@ test('cache response when configured', (t) => {
           const serverWithCache = httpServer.createServer({
             root: serverRoot,
             proxy: `http://localhost:${remotePort}`,
-            proxyCache: './',
+            proxyCache: cachedFilePath,
           });
 
           const serverPort = await getPort();
@@ -93,7 +93,7 @@ test('decompress gzipped response before caching', (t) => {
           const serverWithCache = httpServer.createServer({
             root: serverRoot,
             proxy: `http://localhost:${remotePort}`,
-            proxyCache: './',
+            proxyCache: cachedFilePath,
           });
 
           const serverPort = await getPort();
@@ -161,7 +161,7 @@ test('decompress brotli response before caching', (t) => {
           const serverWithCache = httpServer.createServer({
             root: serverRoot,
             proxy: `http://localhost:${remotePort}`,
-            proxyCache: './',
+            proxyCache: cachedFilePath,
           });
 
           const serverPort = await getPort();
