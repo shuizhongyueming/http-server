@@ -40,7 +40,7 @@ function startServer(url, port, t) {
     });
   } else {
     ecstatic.on('exit', (evt) => {
-         t.notEqual(evt.code, 0, 'err:Running on invalid port not allowed');
+      t.not(t.equal(evt.code, 0), 'err:Running on invalid port not allowed')
     });
   }
 }
@@ -61,4 +61,3 @@ insanePorts.forEach((port) => {
     startServer('http://127.0.0.1:8000', port, t);
   });
 });
-

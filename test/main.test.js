@@ -57,8 +57,8 @@ test('http-server main', (t) => {
             requestAsync("http://localhost:8080/").then(res => {
               t.ok(res);
               t.equal(res.statusCode, 200);
-              t.includes(res.body, './file');
-              t.includes(res.body, './canYouSeeMe');
+              t.ok(res.body.includes('./file'));
+              t.ok(res.body.includes('./canYouSeeMe'));
 
               // Custom headers
               t.equal(res.headers['access-control-allow-origin'], '*');
