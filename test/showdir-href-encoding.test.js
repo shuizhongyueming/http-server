@@ -5,6 +5,7 @@ const ecstatic = require('../lib/core');
 const http = require('http');
 const request = require('request');
 const path = require('path');
+const {closeAndEnd} = require('./utils');
 
 const root = `${__dirname}/public`;
 const baseDir = 'base';
