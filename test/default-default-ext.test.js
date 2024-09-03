@@ -5,6 +5,7 @@ const ecstatic = require('../lib/core');
 const http = require('http');
 const request = require('request');
 const eol = require('eol');
+const { closeAndEnd } = require('./utils');
 
 test('default defaultExt', (t) => {
   t.plan(3);
@@ -16,7 +17,7 @@ test('default defaultExt', (t) => {
       t.error(err);
       t.equal(res.statusCode, 200);
       t.equal(eol.lf(body), 'index!!!\n');
-      server.close(() => { t.end(); });
+      closeAndEnd(server, t);
     });
   });
 });

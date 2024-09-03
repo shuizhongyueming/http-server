@@ -27,8 +27,7 @@ test('url encoding in href', (t) => {
         uri,
       }, (err, res, body) => {
         t.match(body, /href="\.\/aname%2Baplus.txt"/, 'We found the right href');
-        server.close();
-        t.end();
+        closeAndEnd(server, t);
       });
     });
   });

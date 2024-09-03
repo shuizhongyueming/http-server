@@ -5,6 +5,7 @@ const ecstatic = require('../lib/core');
 const http = require('http');
 const request = require('request');
 const eol = require('eol');
+const { closeAndEnd } = require('./utils');
 
 test('escaping special characters', (t) => {
   const server = http.createServer(ecstatic(`${__dirname}/public`));
@@ -15,7 +16,7 @@ test('escaping special characters', (t) => {
       t.error(err);
       t.equal(res.statusCode, 200);
       t.equal(eol.lf(body), 'index!!!\n');
-      server.close(() => { t.end(); });
+      closeAndEnd(server, t);
     });
   });
 });

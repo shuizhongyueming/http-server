@@ -4,6 +4,7 @@ const test = require('tap').test;
 const http = require('http');
 const request = require('request');
 const ecstatic = require('../lib/core');
+const { closeAndEnd } = require('./utils');
 
 test('custom cache option number', (t) => {
   let server = null;
@@ -25,7 +26,7 @@ test('custom cache option number', (t) => {
       t.error(err);
       t.equal(res.statusCode, 200, 'a.txt should be found');
       t.equal(res.headers['cache-control'], 'max-age=3600');
-      server.close(() => { t.end(); });
+      closeAndEnd(server, t);
     });
   });
 });
@@ -50,7 +51,7 @@ test('custom cache option string', (t) => {
       t.error(err);
       t.equal(res.statusCode, 200, 'a.txt should be found');
       t.equal(res.headers['cache-control'], 'max-whatever=3600');
-      server.close(() => { t.end(); });
+      closeAndEnd(server, t);
     });
   });
 });
@@ -84,7 +85,7 @@ test('custom cache option function returning a number', (t) => {
         t.error(err2);
         t.equal(res2.statusCode, 200, 'a.txt should be found');
         t.equal(res2.headers['cache-control'], 'max-age=2');
-        server.close(() => { t.end(); });
+        closeAndEnd(server, t);
       });
     });
   });
@@ -119,7 +120,7 @@ test('custom cache option function returning a string', (t) => {
         t.error(err2);
         t.equal(res2.statusCode, 200, 'a.txt should be found');
         t.equal(res2.headers['cache-control'], 'max-meh=2');
-        server.close(() => { t.end(); });
+        closeAndEnd(server, t);
       });
     });
   });

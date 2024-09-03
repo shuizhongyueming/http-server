@@ -6,6 +6,7 @@ const http = require('http');
 const request = require('request');
 const path = require('path');
 const portfinder = require('portfinder');
+const { closeAndEnd } = require('./utils');
 
 const root = `${__dirname}/public`;
 const baseDir = 'base';
@@ -50,8 +51,7 @@ test('304_not_modified_strong', (t) => {
 
           t.equal(res2.statusCode, 304, 'second request should be a 304');
           t.equal(res2.headers.etag.indexOf('"'), 0, 'should return a strong etag');
-          server.close();
-          t.end();
+          closeAndEnd(server, t);
         });
       });
     });
@@ -83,6 +83,8 @@ test('304_not_modified_weak', (t) => {
       }, (err, res) => {
         if (err) {
           t.fail(err);
+          t.end();
+          return;
         }
 
         t.equal(res.statusCode, 200, 'first request should be a 200');
@@ -96,8 +98,7 @@ test('304_not_modified_weak', (t) => {
 
           t.equal(res2.statusCode, 304, 'second request should be a 304');
           t.equal(res2.headers.etag.indexOf('W/'), 0, 'should return a weak etag');
-          server.close();
-          t.end();
+          closeAndEnd(server, t);
         });
       });
     });
@@ -163,8 +164,7 @@ test('304_not_modified_strong_compare', (t) => {
             // header fields in the request
             // https://www.ietf.org/rfc/rfc2616.txt
             t.equal(res3.statusCode, 200, 'third request with a weak etag should be 200');
-            server.close();
-            t.end();
+            closeAndEnd(server, t);
           });
         });
       });
@@ -226,8 +226,7 @@ test('304_not_modified_weak_compare', (t) => {
             }
 
             t.equal(res3.statusCode, 304, 'third request with a weak etag should be 304');
-            server.close();
-            t.end();
+            closeAndEnd(server, t);
           });
         });
       });

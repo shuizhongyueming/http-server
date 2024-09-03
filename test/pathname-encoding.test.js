@@ -18,6 +18,7 @@ if (process.platform === 'win32') {
 }
 
 const fs = require('fs');
+const { closeAndEnd } = require('./utils');
 
 test('create test directory', (t) => {
   fs.mkdirSync(`${root}/<dir>`, '0755');
@@ -42,8 +43,7 @@ test('directory listing with pathname including HTML characters', (t) => {
       }, (err, res, body) => {
         t.notMatch(body, /<dir>/, 'We didn\'t find the unencoded pathname');
         t.match(body, /&#x3C;dir&#x3E;/, 'We found the encoded pathname');
-        server.close();
-        t.end();
+        closeAndEnd(server, t);
       });
     });
   });
@@ -63,8 +63,7 @@ test('NULL byte in request path does not crash server', (t) => {
     server.listen(port, () => {
       request.get({uri}, (err, res, body) => {
         t.pass('server did not crash')
-        server.close();
-        t.end();
+        closeAndEnd(server, t);
       });
     });
     } catch (err) {

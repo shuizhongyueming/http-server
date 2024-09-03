@@ -4,6 +4,7 @@ const test = require('tap').test;
 const ecstatic = require('../lib/core');
 const http = require('http');
 const request = require('request');
+const { closeAndEnd } = require('./utils');
 
 test('malformed uri', (t) => {
   const server = http.createServer(ecstatic(__dirname));
@@ -14,7 +15,7 @@ test('malformed uri', (t) => {
     request.get(`http://localhost:${server.address().port}/%`, (err, res) => {
       t.error(err);
       t.equal(res.statusCode, 400);
-      server.close(() => { t.end(); });
+      closeAndEnd(server, t);
     });
   });
 });

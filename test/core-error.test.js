@@ -12,6 +12,7 @@ const baseDir = 'base';
 require('fs').mkdirSync(`${root}/emptyDir`, {recursive: true});
 
 const cases = require('./fixtures/common-cases-error');
+const { closeAndEnd } = require('./utils');
 
 test('core', (t) => {
   require('portfinder').getPort((err, port) => {
@@ -62,8 +63,7 @@ test('core', (t) => {
 
           pending -= 1;
           if (pending === 0) {
-            server.close();
-            t.end();
+            closeAndEnd(server, t);
           }
         });
       });

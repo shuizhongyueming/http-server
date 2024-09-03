@@ -4,6 +4,7 @@ const test = require('tap').test;
 const http = require('http');
 const request = require('request');
 const ecstatic = require('../lib/core');
+const { closeAndEnd } = require('./utils');
 
 function setup(opts) {
   return http.createServer(ecstatic(opts));
@@ -41,7 +42,7 @@ test('custom contentType via .types file', (t) => {
       t.error(err);
       t.equal(res.statusCode, 200, 'custom_mime_type.opml should be found');
       t.equal(res.headers['content-type'], 'application/foo');
-      server.close(() => { t.end(); });
+      closeAndEnd(server, t);
     });
   });
 });
