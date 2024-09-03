@@ -3,6 +3,7 @@
   "version": "14.2.2",
   "description": "A simple zero-configuration command-line http server",
   "main": "./lib/http-server",
+  "types": "./types/http-server.d.ts",
   "repository": {
     "type": "git",
     "url": "git://github.com/shuizhongyueming/http-server.git"
@@ -20,11 +21,14 @@
   "scripts": {
     "start": "node ./bin/http-server",
     "test": "tap test/*.test.js",
-    "test-watch": "tap --watch test/*.test.js"
+    "test-watch": "tap --watch test/*.test.js",
+    "types": "tsc lib/*.js --declaration --allowJs --emitDeclarationOnly --outDir ./types",
+    "types-watch": "tsc lib/*.js --watch --declaration --allowJs --emitDeclarationOnly --outDir ./types"
   },
   "files": [
     "lib",
     "bin",
+    "types",
     "doc"
   ],
   "man": "./doc/http-server.1",
@@ -105,7 +109,8 @@
     "eslint-config-populist": "^4.2.0",
     "express": "^4.17.1",
     "request": "^2.88.2",
-    "tap": "^21.0.1"
+    "tap": "^21.0.1",
+    "typescript": "^5.5.4"
   },
   "bugs": {
     "url": "https://github.com/shuizhongyueming/http-server/issues"
