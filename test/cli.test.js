@@ -34,7 +34,7 @@ function checkServerIsRunning(url, msg, t, _cb) {
 }
 
 function tearDown(ps, t) {
-  t.tearDown(() => {
+  t.teardown(() => {
     ps.kill('SIGTERM');
   });
 }
@@ -104,7 +104,7 @@ test('setting mimeTypes via cli - directly', (t) => {
 
 test('--proxy requires you to specify a protocol', (t) => {
   t.plan(1);
-  
+
   const options = ['.', '--proxy', 'google.com'];
   const server = startServer(options);
 

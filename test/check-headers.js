@@ -1,4 +1,5 @@
 const request = require('request');
+const { closeAndEnd } = require('./utils');
 
 module.exports = (t, server, path, check) => {
   server.listen(() => {
@@ -9,9 +10,8 @@ module.exports = (t, server, path, check) => {
       t.error(err);
       t.equal(res.statusCode, 200);
       check(t, res.headers);
+
+      closeAndEnd(server, t);
     });
-  });
-  t.once('end', () => {
-    server.close();
   });
 }

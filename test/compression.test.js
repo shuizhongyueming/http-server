@@ -4,6 +4,7 @@ const test = require('tap').test;
 const ecstatic = require('../lib/core');
 const http = require('http');
 const request = require('request');
+const { closeAndEnd } = require('./utils');
 
 const root = `${__dirname}/public`;
 
@@ -29,10 +30,9 @@ test('serves brotli-encoded file when available', (t) => {
       t.error(err);
       t.equal(res.statusCode, 200);
       t.equal(res.headers['content-encoding'], 'br');
+
+      closeAndEnd(server, t);
     });
-  });
-  t.once('end', () => {
-    server.close();
   });
 });
 
@@ -59,10 +59,9 @@ test('serves gzip-encoded file when brotli not available', (t) => {
       t.error(err);
       t.equal(res.statusCode, 200);
       t.equal(res.headers['content-encoding'], 'gzip');
+
+      closeAndEnd(server, t);
     });
-  });
-  t.once('end', () => {
-    server.close();
   });
 });
 
@@ -89,10 +88,9 @@ test('serves gzip-encoded file when brotli not accepted', (t) => {
       t.error(err);
       t.equal(res.statusCode, 200);
       t.equal(res.headers['content-encoding'], 'gzip');
+
+      closeAndEnd(server, t);
     });
-  });
-  t.once('end', () => {
-    server.close();
   });
 });
 
@@ -119,10 +117,9 @@ test('serves gzip-encoded file when brotli not enabled', (t) => {
       t.error(err);
       t.equal(res.statusCode, 200);
       t.equal(res.headers['content-encoding'], 'gzip');
+
+      closeAndEnd(server, t);
     });
-  });
-  t.once('end', () => {
-    server.close();
   });
 });
 
@@ -149,10 +146,9 @@ test('serves unencoded file when compression not accepted', (t) => {
       t.error(err);
       t.equal(res.statusCode, 200);
       t.equal(res.headers['content-encoding'], undefined);
+
+      closeAndEnd(server, t);
     });
-  });
-  t.once('end', () => {
-    server.close();
   });
 });
 
@@ -179,9 +175,8 @@ test('serves unencoded file when compression not enabled', (t) => {
       t.error(err);
       t.equal(res.statusCode, 200);
       t.equal(res.headers['content-encoding'], undefined);
+
+      closeAndEnd(server, t);
     });
-  });
-  t.once('end', () => {
-    server.close();
   });
 });
