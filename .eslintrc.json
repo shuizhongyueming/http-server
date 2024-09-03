@@ -2,10 +2,20 @@
   "extends": "eslint-config-populist",
   "rules": {
     "strict": "warn",
-    "indent": ["warn", 2],
+    "indent": ["off", 2],
     "valid-jsdoc": "warn",
     "no-undefined": "warn",
-    "comma-dangle": "warn",
-    "callback-return": ["warn", ["next"]]
-  }
+    "comma-dangle": "off",
+    "callback-return": ["warn", ["next"]],
+    "complexity": ["warn", 100],
+    "max-statements": ["warn", 100]
+  },
+  "overwrides": [
+    {
+      "files": ["test/**/*.js"],
+      "rules": {
+        "handle-callback-err": "off"
+      }
+    }
+  ]
 }
