@@ -19,8 +19,8 @@
   ],
   "scripts": {
     "start": "node ./bin/http-server",
-    "test": "tap --reporter=spec test/*.test.js",
-    "test-watch": "tap --reporter=spec --watch test/*.test.js"
+    "test": "tap test/*.test.js",
+    "test-watch": "tap --watch test/*.test.js"
   },
   "files": [
     "lib",
@@ -105,7 +105,7 @@
     "eslint-config-populist": "^4.2.0",
     "express": "^4.17.1",
     "request": "^2.88.2",
-    "tap": "^14.11.0"
+    "tap": "^21.0.1"
   },
   "bugs": {
     "url": "https://github.com/shuizhongyueming/http-server/issues"
@@ -114,5 +114,8 @@
   "preferGlobal": true,
   "bin": {
     "http-server": "./bin/http-server"
+  },
+  "tap": {
+    "timeout": 6
   }
 }
