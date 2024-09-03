@@ -84,8 +84,9 @@ test('proxy options', (t) => {
       } catch (err) {
         t.fail(err.toString())
       } finally {
-        server.close()
-        resolve()
+        server.close(() => {
+          setTimeout(resolve, 100);
+        });
       }
     })
   })
