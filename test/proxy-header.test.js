@@ -78,6 +78,21 @@ test('proxy with headerKeyForProxyUrl', async (t) => {
     } catch (error) {
       t.equal(error.statusCode, 404, 'Should return 404 for non-existent file');
     }
+
+    // Test 4: Proxy with path with special characters
+    const response4 = await requestGetPromise({
+      uri: `http://localhost:${proxyPort}/zh/doc.html`,
+      headers: {
+        'x-proxy-url': encodeURIComponent( '/中文/檔案.html')
+      },
+      resolveWithFullResponse: true,
+    });
+
+    const htmlContent = fs.readFileSync(__dirname + '/public//中文/檔案.html', 'utf8');
+
+    t.equal(response4.statusCode, 200, 'Response status should be 200');
+    t.equal(response4.body.trim(), htmlContent.trim(), 'Should receive content from /b.txt');
+
   } catch (error) {
     t.error(error, 'No error should be thrown');
   } finally {
